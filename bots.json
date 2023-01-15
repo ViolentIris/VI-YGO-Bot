@@ -169,19 +169,16 @@
         "name": "永远之魂",
         "deck": "Burn",
         "dialog": "soul.zh-CN",
-        "hidden": true
       },
       {
         "name": "永远之魂",
         "deck": "Frog",
         "dialog": "soul.zh-CN",
-        "hidden": true
       },
       {
         "name": "永远之魂",
         "deck": "Horus",
         "dialog": "soul.zh-CN",
-        "hidden": true
       },
       {
         "name": "MAX龍果",
@@ -248,19 +245,16 @@
         "name": "報社鬥士",
         "deck": "GrenMajuThunderBoarder",
         "dialog": "kiwi.zh-TW",
-        "hidden": true
       },
       {
         "name": "燃血鬥士",
         "deck": "ChainBurn",
         "dialog": "kiwi.zh-TW",
-        "hidden": true
       },
       {
         "name": "神数不神",
         "deck": "ThunderDragon",
         "dialog": "Zefra.zh-CN",
-        "hidden": true
       }
     ]
 }
