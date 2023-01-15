@@ -198,6 +198,51 @@
         "deck": "Phantasm",
         "dialog": "kiwi.zh-TW"
       },
+	  {
+        "name": "寒夏",
+        "deck": "Rainbow",
+        "dialog": "Icy_lemonade_in summer.zh-CN"
+      },
+	  {
+        "name": "海涅",
+        "deck": "ST1732",
+        "dialog": "Haine.zh-CN"
+      },
+	  {
+        "name": "海涅",
+        "deck": "Salamangreat",
+        "dialog": "Haine.zh-CN"
+      },
+	  {
+        "name": "天风",
+        "deck": "PureWinds",
+        "dialog": "Starfall.zh-CN"
+      },
+	  {
+        "name": "邪恶老蓝莓",
+        "deck": "ThunderDragon",
+        "dialog": "Blueberry.zh-CN"
+      },
+	  {
+        "name": "歌儿",
+        "deck": "Nekroz",
+        "dialog": "Snow-Song.zh-CN"
+      },
+	  {
+        "name": "夏姬",
+        "deck": "Kashtira",
+        "dialog": "Summer-moe.zh-CN"
+      },
+	  {
+        "name": "夏姬",
+        "deck": "Brave",
+        "dialog": "Summer-moe.zh-CN"
+      },
+	  {
+        "name": "凯撒",
+        "deck": "CyberDragon",
+        "dialog": "Caesar.zh-CN"
+      },
       {
 
         "name": "報社鬥士",
