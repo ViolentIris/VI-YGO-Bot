@@ -221,7 +221,7 @@ namespace WindBot.Game.AI.Decks
                     phalanxCount++;
                     break;
                 }
-                if (CardId.CyberDragon || CardId.CyberDragonCore || CardId.CyberDragonVier || CardId.CyberDragonHerz || CardId.CyberDragonNachster)
+                if (card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
                     tributes.Add(card);
                 if (tributes.Count == 2)
                     break;
@@ -238,14 +238,13 @@ namespace WindBot.Game.AI.Decks
                         phalanxCount--;
                         tributes.Add(card);
                         if (phalanxCount <= 1)
-                            break;
+                        break;
                     }
                 }
             }
 
             if (tributes.Count < 3)
                 return false;
-
             AI.SelectCard(CardId.ChimeratechRampageDragon);
             AI.SelectNextCard(tributes);
             return true;
@@ -253,7 +252,6 @@ namespace WindBot.Game.AI.Decks
 		
 		private bool ChimeratechRampageDragonEffect1()
         {
-            Count_check();
             if((Bot.GetRemainingCount(CardId.CyberDragonHerz, 3) + Bot.GetRemainingCount(CardId.CyberDragon, 3) + Bot.GetRemainingCount(CardId.CyberDragonCore, 3) + Bot.GetRemainingCount(CardId.CyberDragonNachster, 3) + Bot.GetRemainingCount(CardId.CyberDragonVier, 3)) > 1)
             {
                 AI.SelectCard(CardId.CyberDragonCore, CardId.CyberDragonHerz, CardId.CyberDragon, CardId.CyberDragonNachster, CardId.CyberDragonVier);
@@ -275,7 +273,6 @@ namespace WindBot.Game.AI.Decks
 		
 		private bool MachineDuplicationEffect()
         {
-            Count_check();
             if(Bot.GetRemainingCount(CardId.CyberDragon, 3) > 0)
             {
                 AI.SelectCard(CardId.CyberDragonCore, CardId.CyberDragonHerz, CardId.CyberDragonNachster);
@@ -372,46 +369,6 @@ namespace WindBot.Game.AI.Decks
                 AI.SelectCard(target);
                 return true;
             }
-            return false;
-        }
-		
-		private bool HaveOtherLV5OnField()
-        {
-            foreach (ClientCard monster in Bot.GetMonsters())
-            {
-                if (monster.HasType(CardType.Monster) &&
-                    !monster.HasType(CardType.Xyz) &&
-                    Util.GetBotAvailZonesFromExtraDeck(monster) > 0 &&
-                    (monster.Level == 5
-                    || monster.IsCode(CardId.StarDrawing)
-                    || monster.IsCode(CardId.WindUpSoldier) && !monster.Equals(Card)))
-                    return true;
-            }
-            return false;
-        }
-		
-		private bool NeedLV5()
-        {
-            if (HaveOtherLV5OnField())
-                return true;
-            if (Util.GetBotAvailZonesFromExtraDeck() == 0)
-                return false;
-            int lv5Count = 0;
-            foreach (ClientCard card in Bot.Hand)
-            {
-                if (card.IsCode(CardId.SolarWindJammer) && Bot.GetMonsterCount() == 0)
-                    ++lv5Count;
-                if (card.IsCode(CardId.InstantFusion) && !InstantFusionUsed)
-                    ++lv5Count;
-                if (card.IsCode(CardId.QuickdrawSynchron) && Bot.Hand.ContainsMonsterWithLevel(4))
-                    ++lv5Count;
-                if (card.IsCode(CardId.MistArchfiend) && !NormalSummoned)
-                    ++lv5Count;
-                if (card.IsCode(CardId.DoubleSummon) && DoubleSummonEffect())
-                    ++lv5Count;
-            }
-            if (lv5Count >= 2)
-                return true;
             return false;
         }
 		
