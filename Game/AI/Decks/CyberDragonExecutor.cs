@@ -221,7 +221,7 @@ namespace WindBot.Game.AI.Decks
                     phalanxCount++;
                     break;
                 }
-                if (CardId.CyberDragon)||(CardId.CyberDragonCore)||(CardId.CyberDragonVier)||(CardId.CyberDragonHerz)||(CardId.CyberDragonNachster)
+                if (CardId.CyberDragon, CardId.CyberDragonCore, CardId.CyberDragonVier, CardId.CyberDragonHerz, CardId.CyberDragonNachster)
                     tributes.Add(card);
                 if (tributes.Count == 2)
                     break;
@@ -254,7 +254,7 @@ namespace WindBot.Game.AI.Decks
 		private bool ChimeratechRampageDragonEffect1()
         {
             Count_check();
-            if(Bot.GetRemainingCount((CardId.CyberDragonHerz, 3) + Bot.GetRemainingCount(CardId.CyberDragon, 3) + Bot.GetRemainingCount(CardId.CyberDragonCore, 3) + Bot.GetRemainingCount(CardId.CyberDragonNachster, 3) + Bot.GetRemainingCount(CardId.CyberDragonVier, 3)) > 1)
+            if((Bot.GetRemainingCount(CardId.CyberDragonHerz, 3) + Bot.GetRemainingCount(CardId.CyberDragon, 3) + Bot.GetRemainingCount(CardId.CyberDragonCore, 3) + Bot.GetRemainingCount(CardId.CyberDragonNachster, 3) + Bot.GetRemainingCount(CardId.CyberDragonVier, 3)) > 1)
             {
                 AI.SelectCard(CardId.CyberDragonCore, CardId.CyberDragonHerz, CardId.CyberDragon, CardId.CyberDragonNachster, CardId.CyberDragonVier);
                 return true;
@@ -289,7 +289,7 @@ namespace WindBot.Game.AI.Decks
         {
 			AI.SelectMaterials(new List<int>() {
                         CardId.CyberDragon,
-                        CardId.CyberDragonHerz
+                        CardId.CyberDragonHerz,
 						CardId.PanzerDragon
             });
             return !CyberDragonInfinitySummoned;
