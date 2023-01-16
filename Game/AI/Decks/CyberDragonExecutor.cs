@@ -119,7 +119,7 @@ namespace WindBot.Game.AI.Decks
         private bool PolymerizationEffect()
         {
             if (Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragon) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonVier) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonCore) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonHerz) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonNachster) + Bot.GetCountCardInZone(Bot.Hand, CardId.CyberDragon) >= 3)
-                AI.SelectCard(CardId.CyberEndDragon);
+                AI.SelectCard(CardId.ChimeratechRampageDragon);
             else 
 				AI.SelectCard(CardId.CyberTwinDragon);
             return true;
