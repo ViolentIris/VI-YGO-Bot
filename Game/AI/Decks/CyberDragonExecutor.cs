@@ -214,7 +214,7 @@ namespace WindBot.Game.AI.Decks
 		{
             IList<ClientCard> tributes = new List<ClientCard>();
             int phalanxCount = 0;
-            foreach (ClientCard card in (Bot.Graveyard || Bot.MonsterZone))
+            foreach (ClientCard card in (Bot.Graveyard, Bot.MonsterZone))
             {
                 if (card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
                 {
@@ -231,7 +231,7 @@ namespace WindBot.Game.AI.Decks
             // if we have more than one in the graveyard.
             if (tributes.Count < 3 && phalanxCount > 1)
             {
-                foreach (ClientCard card in (Bot.Graveyard || Bot.MonsterZone))
+                foreach (ClientCard card in (Bot.Graveyard, Bot.MonsterZone))
                 {
                     if (card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
                     {
