@@ -221,7 +221,7 @@ namespace WindBot.Game.AI.Decks
                     phalanxCount++;
                     break;
                 }
-                if (CardId.CyberDragon, CardId.CyberDragonCore, CardId.CyberDragonVier, CardId.CyberDragonHerz, CardId.CyberDragonNachster)
+                if (CardId.CyberDragon || CardId.CyberDragonCore || CardId.CyberDragonVier || CardId.CyberDragonHerz || CardId.CyberDragonNachster)
                     tributes.Add(card);
                 if (tributes.Count == 2)
                     break;
