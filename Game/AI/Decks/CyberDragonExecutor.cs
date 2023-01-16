@@ -214,14 +214,14 @@ namespace WindBot.Game.AI.Decks
 		{
             IList<ClientCard> tributes = new List<ClientCard>();
             int phalanxCount = 0;
-            foreach (ClientCard card in Bot.Graveyard)
+            foreach (ClientCard card in Bot.Graveyard) || (ClientCard card in Bot.MonsterZone)
             {
                 if (card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
                 {
                     phalanxCount++;
                     break;
                 }
-                if (card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
+                if (card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
                     tributes.Add(card);
                 if (tributes.Count == 2)
                     break;
@@ -231,9 +231,9 @@ namespace WindBot.Game.AI.Decks
             // if we have more than one in the graveyard.
             if (tributes.Count < 3 && phalanxCount > 1)
             {
-                foreach (ClientCard card in Bot.Graveyard)
+                foreach (ClientCard card in Bot.Graveyard) || (ClientCard card in Bot.MonsterZone)
                 {
-                    if (card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
+                    if (card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
                     {
                         phalanxCount--;
                         tributes.Add(card);
