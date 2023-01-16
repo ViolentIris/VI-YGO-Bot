@@ -375,8 +375,8 @@ namespace WindBot.Game.AI.Decks
 		private bool InstantFusionEffect()
         {
 			foreach (ClientCard monster in Bot.GetMonsters())
-            if (!monster.Level == 5)
-                return false;
+            if (monster.Level == 5)
+                return true;
             InstantFusionUsed = true;
             return true;
         }
