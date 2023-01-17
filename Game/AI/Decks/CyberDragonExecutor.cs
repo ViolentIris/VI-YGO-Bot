@@ -42,7 +42,6 @@ namespace WindBot.Game.AI.Decks
 			public const int CyberEmergency = 60600126;
 			public const int CyberRevsystem = 33041277;
 			public const int LimiterRemoval = 23171610;
-			public const int InstantFusion = 1845204;
 			
             public const int CyberTwinDragon = 74157028;
 			public const int CyberEndDragon = 1546123;
@@ -50,7 +49,6 @@ namespace WindBot.Game.AI.Decks
             public const int CyberDragonInfinity = 10443957;
             public const int CyberDragonNova = 58069384;
 			public const int CyberDragonSieger = 46724542;
-			public const int PanzerDragon = 72959823;
         }
 
         public CyberDragonExecutor(GameAI ai, Duel duel)
@@ -87,7 +85,6 @@ namespace WindBot.Game.AI.Decks
 			AddExecutor(ExecutorType.Activate, CardId.CyberEmergency, CyberEmergencyEffect);
 			AddExecutor(ExecutorType.Activate, CardId.CyberRevsystem);
 			AddExecutor(ExecutorType.Activate, CardId.LimiterRemoval, LimiterRemovalEffect);
-			AddExecutor(ExecutorType.Activate, CardId.InstantFusion, InstantFusionEffect);
 			
 			AddExecutor(ExecutorType.Activate, CardId.AshBlossomAndJoyousSpring, DefaultAshBlossomAndJoyousSpring);
             AddExecutor(ExecutorType.Activate, CardId.MaxxC, DefaultMaxxC);
@@ -95,11 +92,10 @@ namespace WindBot.Game.AI.Decks
             AddExecutor(ExecutorType.Activate, CardId.CyberDragonCore, CyberDragonCoreEffect);
 			AddExecutor(ExecutorType.Activate, CardId.CyberDragonHerz, CyberDragonHerzEffect);
 			AddExecutor(ExecutorType.Activate, CardId.ChimeratechRampageDragon, ChimeratechRampageDragonEffect1);
-			AddExecutor(ExecutorType.Activate, CardId.PanzerDragon, PanzerDragonEffect);
 
             AddExecutor(ExecutorType.SpSummon, CardId.CyberEndDragon);
             AddExecutor(ExecutorType.SpSummon, CardId.CyberTwinDragon);
-			AddExecutor(ExecutorType.SpSummon, CardId.ChimeratechRampageDragon, ChimeratechRampageDragonEffect2);
+			AddExecutor(ExecutorType.SpSummon, CardId.ChimeratechRampageDragon);
 			
 			AddExecutor(ExecutorType.SpellSet, DefaultSpellSet);
         }
@@ -109,7 +105,6 @@ namespace WindBot.Game.AI.Decks
         private bool CyberDragonInMonsterZone() { return Bot.HasInMonstersZone(CardId.CyberDragon); }
         private bool CyberDragonIsBanished() { return Bot.HasInBanished(CardId.CyberDragon); }
 		private bool CyberDragonInfinitySummoned = false;
-		private bool InstantFusionUsed = false;
 
         public override void OnNewTurn()
         {
@@ -128,10 +123,10 @@ namespace WindBot.Game.AI.Decks
         private bool PowerBondEffect()
         {
             PowerBondUsed = true;
-            if ((Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragon) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonVier) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonCore) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonHerz) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonNachster) + Bot.GetCountCardInZone(Bot.Hand, CardId.CyberDragon) >= 3))
-                AI.SelectCard(CardId.ChimeratechRampageDragon);
+            if ((Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragon) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonVier) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonCore) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonHerz) + Bot.GetCountCardInZone(Bot.MonsterZone, CardId.CyberDragonNachster) + Bot.GetCountCardInZone(Bot.Hand, CardId.CyberDragon) >= 4))
+                AI.SelectCard(CardId.CyberTwinDragon);
 			else 
-				AI.SelectCard(CardId.CyberTwinDragon);
+				AI.SelectCard(CardId.ChimeratechRampageDragon);
             return true;
         }
 		
@@ -211,42 +206,10 @@ namespace WindBot.Game.AI.Decks
         }
 		
 		private bool OverloadFusionEffect()
-		{
-            IList<ClientCard> tributes = new List<ClientCard>();
-            int phalanxCount = 0;
-            foreach (ClientCard card in Bot.MonsterZone)
-            {
-                if (card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
-                {
-                    phalanxCount++;
-                    break;
-                }
-                if (card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
-                    tributes.Add(card);
-                if (tributes.Count == 2)
-                    break;
-            }
-
-            // We can tribute one or two phalanx if needed, but only
-            // if we have more than one in the graveyard.
-            if (tributes.Count < 3 && phalanxCount > 1)
-            {
-                foreach (ClientCard card in Bot.MonsterZone)
-                {
-                    if (card.IsCode(CardId.CyberDragonCore)||card.IsCode(CardId.CyberDragon)||card.IsCode(CardId.CyberDragonVier)||card.IsCode(CardId.CyberDragonHerz)||card.IsCode(CardId.CyberDragonNachster))
-                    {
-                        phalanxCount--;
-                        tributes.Add(card);
-                        if (phalanxCount <= 1)
-                        break;
-                    }
-                }
-            }
-
-            if (tributes.Count < 3)
-                return false;
-            AI.SelectCard(CardId.ChimeratechRampageDragon);
-            AI.SelectNextCard(tributes);
+        {
+			if (Duel.Turn == 1) return false;
+            if ((Bot.Graveyard.GetMatchingCardsCount(card => (card.Race & (int)CardRace.Machine) > 0) >= 0) && !Bot.HasInMonstersZone(CardId.CyberDragonSieger))
+				AI.SelectCard(CardId.ChimeratechRampageDragon);
             return true;
         }
 		
@@ -259,18 +222,7 @@ namespace WindBot.Game.AI.Decks
             }
             return false;
         }
-		
-        private bool ChimeratechRampageDragonEffect2()
-        {
-            AI.SelectCard(Util.GetBestEnemyCard(false, true));
-            if (Util.GetBestEnemyCard(false, true) != null)
-                Logger.DebugWriteLine("*************SelectCard= " + Util.GetBestEnemyCard(false, true).Id);
-            AI.SelectNextCard(Util.GetBestEnemyCard(false, true));
-            if (Util.GetBestEnemyCard(false, true) != null)
-                Logger.DebugWriteLine("*************SelectCard= " + Util.GetBestEnemyCard(false, true).Id);
-            return true;
-        }
-		
+
 		private bool MachineDuplicationEffect()
         {
             if(Bot.GetRemainingCount(CardId.CyberDragon, 3) > 0)
@@ -286,8 +238,7 @@ namespace WindBot.Game.AI.Decks
         {
 			AI.SelectMaterials(new List<int>() {
                         CardId.CyberDragon,
-                        CardId.CyberDragonHerz,
-						CardId.PanzerDragon
+                        CardId.CyberDragonHerz
             });
             return !CyberDragonInfinitySummoned;
         }
@@ -358,26 +309,6 @@ namespace WindBot.Game.AI.Decks
             if (material_list.Count < 2) return false;
             if (Bot.HasInMonstersZone(CardId.CyberDragonSieger)) return false;
             AI.SelectMaterials(material_list);
-            return true;
-        }
-		
-		private bool PanzerDragonEffect()
-        {
-            ClientCard target = Util.GetBestEnemyCard();
-            if (target != null)
-            {
-                AI.SelectCard(target);
-                return true;
-            }
-            return false;
-        }
-		
-		private bool InstantFusionEffect()
-        {
-			foreach (ClientCard monster in Bot.GetMonsters())
-            if (Bot.HasInMonstersZone(CardId.CyberDragon))
-                return true;
-            InstantFusionUsed = true;
             return true;
         }
     }
