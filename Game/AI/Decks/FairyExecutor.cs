@@ -48,6 +48,7 @@ namespace WindBot.Game.AI.Decks
             AddExecutor(ExecutorType.Summon, CardId.Artemis);
 			AddExecutor(ExecutorType.Summon, CardId.Meltiel);
 			AddExecutor(ExecutorType.Summon, CardId.Statue);
+			AddExecutor(ExecutorType.Summon, CardId.Ariadne);
 
             AddExecutor(ExecutorType.Activate, CardId.Artemis);
             AddExecutor(ExecutorType.Activate, CardId.Meltiel);
