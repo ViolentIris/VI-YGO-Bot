@@ -38,14 +38,12 @@ namespace WindBot.Game.AI.Decks
 			
 			public const int Sanctuary = 56433456;
         }
-		
-		bool CardOfDemiseUsed = false;
 
         public FairyExecutor(GameAI ai, Duel duel)
             : base(ai, duel)
         {
             AddExecutor(ExecutorType.Activate, CardId.Ariadne, AriadneScaleActivate);
-			AddExecutor(ExecutorType.Activate, CardId.Solidarity, Solidarity);
+			AddExecutor(ExecutorType.Activate, CardId.Solidarity);
 
             AddExecutor(ExecutorType.Summon, CardId.Artemis);
 			AddExecutor(ExecutorType.Summon, CardId.Meltiel);
@@ -61,7 +59,7 @@ namespace WindBot.Game.AI.Decks
 
             AddExecutor(ExecutorType.Activate, CardId.CardOfDemise, CardOfDemiseeff);
 			AddExecutor(ExecutorType.Activate, CardId.Parshath1, Parshath1eff);
-			AddExecutor(ExecutorType.Activate, CardId.Ties, Tieseff);
+			AddExecutor(ExecutorType.Activate, CardId.Ties);
 			
 			AddExecutor(ExecutorType.Activate, CardId.Powerless, DefaultUniqueTrap);
 			AddExecutor(ExecutorType.Activate, CardId.SolemnStrike, DefaultSolemnStrike);
@@ -85,10 +83,6 @@ namespace WindBot.Game.AI.Decks
             return true;
         }
 
-        public override void OnNewTurn()
-        {
-            CardOfDemiseUsed = false;
-        }
 		private bool SpellSet()
         {
             if (Card.IsCode(CardId.Warlords) && Bot.HasInSpellZone(CardId.Warlords)) return false;
@@ -101,29 +95,11 @@ namespace WindBot.Game.AI.Decks
         private bool CardOfDemiseeff()
         {
             if (Bot.HasInHand(CardId.Honest)) return false;
-			return CardOfDemiseUsed;
-        }
-		private bool Tieseff()
-        {
-            {
-            if(Bot.GetRemainingCount(CardId.Ariadne, 3) + Bot.GetRemainingCount(CardId.Artemis, 3) + Bot.GetRemainingCount(CardId.Meltiel, 3) + Bot.GetRemainingCount(CardId.Honest, 2) + Bot.GetRemainingCount(CardId.Statue, 3) > 0)
-            {
-                AI.SelectCard(CardId.Ariadne, CardId.Artemis, CardId.Meltiel, CardId.Statue);
-                AI.SelectNextCard(CardId.Statue, CardId.Honest, CardId.Artemis, CardId.Meltiel, CardId.Ariadne);
-                return true;
-            }
-            return false;
-        }
         }
 		private bool AriadneScaleActivate()
         {
             if (Bot.HasInSpellZone(CardId.Ariadne)) return false;
 			return false;
-        }
-        private bool Solidarity()
-        {
-            List<ClientCard> monsters = Bot.GetGraveyardMonsters();
-            return monsters.Count != 0;
         }
 		private bool Parshath1eff()
         {
