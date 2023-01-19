@@ -161,8 +161,6 @@ namespace WindBot.Game.AI.Decks
         {
             if (Bot.LifePoints <= 1000) return false;
             if (Bot.HasInSpellZone(CardId.Hole)) return false;
-			if (Bot.HasInSpellZone(CardId.Chicken)) return true;
-			if (Bot.SpellZone[5] = null) return true;
             if (ActivateDescription == Util.GetStringId(CardId.Chicken, 0))
                 return true;
             return false;
