@@ -131,7 +131,7 @@ namespace WindBot.Game.AI.Decks
             if (Waboku_count >= 2) Waboku_count = 1;
             if (Roar_count >= 2) Roar_count = 1;
 			if (Duel.Phase == DuelPhase.End) 
-			{AI.SelectCard(CardId.CardcarD, CardId.Scarecrow, CardId.BattleFader);}
+			{AI.SelectCard(CardId.CardcarD, CardId.Scarecrow, CardId.BattleFader, CardId.ThreateningRoar, CardId.Waboku, CardId.Escape, CardId.Terraforming, CardId.Peace, CardId.Chicken, CardId.Hole, CardId.RecklessGreed, CardId.Upstart);}
             }
         private bool ThreateningRoareff()
         {
@@ -161,9 +161,15 @@ namespace WindBot.Game.AI.Decks
         {
             if (Bot.LifePoints <= 1000) return false;
             if (Bot.HasInSpellZone(CardId.Hole)) return false;
+			if (Card.Location == CardLocation.Hand)
+                return DefaultField();
+            return false;
+        }
+		private bool Chickeneff()
+        {
             if (ActivateDescription == Util.GetStringId(CardId.Chicken, 0))
                 return true;
-            return false;
+            return true;
         }
 		private bool HoleAct()
         {
