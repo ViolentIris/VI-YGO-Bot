@@ -130,7 +130,8 @@ namespace WindBot.Game.AI.Decks
             }            
             if (Waboku_count >= 2) Waboku_count = 1;
             if (Roar_count >= 2) Roar_count = 1;
-            int currentchain = 0;
+			if (Duel.Phase == DuelPhase.End) 
+			{AI.SelectCard(CardId.CardcarD, CardId.Scarecrow, CardId.BattleFader)};
             }
         private bool ThreateningRoareff()
         {
@@ -160,16 +161,18 @@ namespace WindBot.Game.AI.Decks
         {
             if (Bot.LifePoints <= 1000) return false;
             if (Bot.HasInSpellZone(CardId.Hole)) return false;
+			if (Bot.HasInSpellZone(CardId.Chicken)) return true;
+			if (Bot.SpellZone[5] = null) return true;
             if (ActivateDescription == Util.GetStringId(CardId.Chicken, 0))
                 return true;
-            return true;
+            return false;
         }
 		private bool HoleAct()
         {
-			if (Enemy.GetMonsterCount() >= 1) return true;
+			if (Bot.GetMonsterCount() >= Enemy.GetMonsterCount()) return false;
 			if (Bot.HasInHand(CardId.Chicken)) return false;
 			if (Bot.HasInSpellZone(CardId.Hole)) return false;
-            return true;
+            return false;
         }
 		private bool TerraformingAct()
         {
