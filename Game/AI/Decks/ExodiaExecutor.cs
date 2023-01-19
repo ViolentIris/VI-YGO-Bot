@@ -159,7 +159,7 @@ namespace WindBot.Game.AI.Decks
 		private bool ChickenAct()
         {
             if (Bot.LifePoints <= 1000) return false;
-            if (Bot.SpellZone[5].IsCode(CardId.Hole) && Bot.SpellZone[5].Disabled==0) return false;
+            if (Bot.SpellZone[5].IsCode(CardId.Hole)) return false;
             if (ActivateDescription == Util.GetStringId(CardId.Chicken, 0))
                 return true;
             return false;
@@ -167,6 +167,7 @@ namespace WindBot.Game.AI.Decks
 		private bool HoleAct()
         {
 			if (Enemy.GetMonsterCount() >= 1) return true;
+			if (Bot.SpellZone[5].IsCode(CardId.Hole)) return false;
             return false;
         }
 		private bool TerraformingAct()
