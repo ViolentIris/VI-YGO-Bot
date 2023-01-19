@@ -57,7 +57,7 @@ namespace WindBot.Game.AI.Decks
 			AddExecutor(ExecutorType.Activate, CardId.Paladin1, Paladin1Effect1);
 			AddExecutor(ExecutorType.Activate, CardId.Paladin1, Paladin1Effect2);
 
-            AddExecutor(ExecutorType.Activate, CardId.CardOfDemise, CardOfDemiseeff);
+            AddExecutor(ExecutorType.Activate, CardId.CardOfDemise);
 			AddExecutor(ExecutorType.Activate, CardId.Parshath1, Parshath1eff);
 			AddExecutor(ExecutorType.Activate, CardId.Ties);
 			
