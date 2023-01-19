@@ -7,7 +7,7 @@ using WindBot.Game.AI;
 namespace WindBot.Game.AI.Decks
 {
     [Deck("Fairy", "AI_Fairy")]
-    public class QliphortExecutor : DefaultExecutor
+    public class FairyExecutor : DefaultExecutor
     {
         public class CardId
         {
@@ -38,8 +38,8 @@ namespace WindBot.Game.AI.Decks
 			
 			public const int Sanctuary = 56433456;
         }
-
-        bool CardOfDemiseUsed = false;
+		
+		bool CardOfDemiseUsed = false;
 
         public FairyExecutor(GameAI ai, Duel duel)
             : base(ai, duel)
@@ -106,7 +106,7 @@ namespace WindBot.Game.AI.Decks
 		private bool Tieseff()
         {
             {
-            if(Bot.GetRemainingCount(CardId.Ariadne, 3) + (CardId.Artemis, 3) + (CardId.Meltiel, 3) +(CardId.Honest, 2) + (CardId.Statue, 3) > 0)
+            if(Bot.GetRemainingCount(CardId.Ariadne, 3) + Bot.GetRemainingCount(CardId.Artemis, 3) + Bot.GetRemainingCount(CardId.Meltiel, 3) + Bot.GetRemainingCount(CardId.Honest, 2) + Bot.GetRemainingCount(CardId.Statue, 3) > 0)
             {
                 AI.SelectCard(CardId.Ariadne, CardId.Artemis, CardId.Meltiel, CardId.Statue);
                 AI.SelectNextCard(CardId.Statue, CardId.Honest, CardId.Artemis, CardId.Meltiel, CardId.Ariadne);
@@ -118,7 +118,6 @@ namespace WindBot.Game.AI.Decks
 		private bool AriadneScaleActivate()
         {
             if (Bot.HasInSpellZone(CardId.Ariadne))
-                return false;
             return false;
         }
         private bool Solidarity()
@@ -137,16 +136,12 @@ namespace WindBot.Game.AI.Decks
                     AI.SelectCard(CardId.Honest, CardId.Statue, CardId.Ariadne, CardId.Artemis, CardId.Meltiel);
 					AI.SelectNextCard(CardId.Honest, CardId.Statue, CardId.Ariadne, CardId.Artemis, CardId.Meltiel);
 					AI.SelectPosition(CardPosition.FaceUpAttack);
-                    return true;
-                }
-            }
-            return false;
+            return true;
         }
 		private bool Paladin1Effect2()
         {
 			AI.SelectCard(CardId.Parshath2, CardId.SolemnStrike, CardId.SolemnWarning, CardId.SolemnJudgment, CardId.Horn, CardId.Parshath1);
 			return true;
-            return false;
         }
 		private bool Paladin3Effect()
         {

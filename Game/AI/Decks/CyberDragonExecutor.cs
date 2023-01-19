@@ -218,7 +218,7 @@ namespace WindBot.Game.AI.Decks
         {
             IList<ClientCard> targets = Enemy.GetSpells();
             if (targets.Count > 0) {
-				AI.SelectCard(targets)
+				AI.SelectCard(targets);
                 return true;
             }
             return false;
