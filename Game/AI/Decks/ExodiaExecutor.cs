@@ -131,7 +131,7 @@ namespace WindBot.Game.AI.Decks
             if (Waboku_count >= 2) Waboku_count = 1;
             if (Roar_count >= 2) Roar_count = 1;
 			if (Duel.Phase == DuelPhase.End) 
-			{AI.SelectCard(CardId.CardcarD, CardId.Scarecrow, CardId.BattleFader)};
+			{AI.SelectCard(CardId.CardcarD, CardId.Scarecrow, CardId.BattleFader);}
             }
         private bool ThreateningRoareff()
         {
