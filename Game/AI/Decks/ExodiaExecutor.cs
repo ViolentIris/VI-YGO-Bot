@@ -14,18 +14,18 @@ namespace WindBot.Game.AI.Decks
             public const int CardcarD = 45812361;
             public const int BattleFader = 19665973;
 			public const int Scarecrow = 19665973;
-			public const int Lefthand = 7902349
-			public const int Righthand = 70903634
-			public const int Leftleg = 44519536
-			public const int Rightleg = 8124921
-			public const int Body = 33396948
+			public const int Lefthand = 7902349;
+			public const int Righthand = 70903634;
+			public const int Leftleg = 44519536;
+			public const int Rightleg = 8124921;
+			public const int Body = 33396948;
 
             public const int Peace = 33782437;
 			public const int Greed = 55144522;
 			public const int Upstart = 70368879;
 			public const int Terraforming = 73628505;
 			public const int Chicken = 67616300;
-			public const int Hole = 76375976
+			public const int Hole = 76375976;
 
             public const int Waboku = 12607053;
             public const int ThreateningRoar = 36361633;
@@ -167,8 +167,8 @@ namespace WindBot.Game.AI.Decks
 		private bool HoleAct()
         {
             if (Bot.SpellZone[5].IsCode(CardId.Hole) && Bot.SpellZone[5].Disabled==0) return false;
-			if ((Bot.Bot.HasInHand(Bot.Hand, CardId.Chicken) || Bot.HasInHand(CardId.Terraforming)) return false;
-			if (Enemy.MonsterZone.ToList().Count = 0) return false;
+			if (Bot.Bot.HasInHand(Bot.Hand, CardId.Chicken) || Bot.HasInHand(CardId.Terraforming)) return false;
+			if (Enemy.MonsterZone.ToList().Count >= 1) return false;
             return false;
         }
 		private bool TerraformingAct()
@@ -178,7 +178,10 @@ namespace WindBot.Game.AI.Decks
                 AI.SelectCard(CardId.Chicken);
                 return true;
             }
-            else {AI.SelectCard(CardId.Hole) return true;}
+			else {
+			AI.SelectCard(CardId.Hole);
+			return true;
+			}
             return true;
         }
         private bool BattleFadereff()
