@@ -24,7 +24,7 @@ namespace WindBot.Game.AI.Decks
 			public const int Solidarity = 86780027;
 
             public const int SolemnWarning = 84749824;
-            public const int SolemStrike = 40605147;
+            public const int SolemnStrike = 40605147;
             public const int SolemnJudgment = 41420027;
 			public const int Match = 53334471;
 			public const int AntiSpellFragrance = 58921041;
@@ -132,7 +132,7 @@ namespace WindBot.Game.AI.Decks
         }
 		private bool Paladin1Effect1()
         {           
-            foreach (ClientCard e_c in Bot.HandOrGraveyard)
+            foreach (ClientCard e_c in Bot.HasInHandOrInGraveyard(CardId.Honest, CardId.Statue, CardId.Ariadne, CardId.Artemis, CardId.Meltiel))
                     AI.SelectCard(CardId.Honest, CardId.Statue, CardId.Ariadne, CardId.Artemis, CardId.Meltiel);
 					AI.SelectNextCard(CardId.Honest, CardId.Statue, CardId.Ariadne, CardId.Artemis, CardId.Meltiel);
 					AI.SelectPosition(CardPosition.FaceUpAttack);
@@ -141,6 +141,11 @@ namespace WindBot.Game.AI.Decks
 		private bool Paladin1Effect2()
         {
 			AI.SelectCard(CardId.Parshath2, CardId.SolemnStrike, CardId.SolemnWarning, CardId.SolemnJudgment, CardId.Horn, CardId.Parshath1);
+			return true;
+        }
+		private bool AriadneEffect()
+        {
+			AI.SelectCard(CardId.Parshath2, CardId.SolemnStrike, CardId.SolemnWarning, CardId.SolemnJudgment, CardId.Horn, CardId.Powerless);
 			return true;
         }
 		private bool Paladin3Effect()
@@ -165,6 +170,8 @@ namespace WindBot.Game.AI.Decks
             if (desc == Util.GetStringId(CardId.Parshath2, 0))
                 return true;
             return base.OnSelectYesNo(desc);
+			AI.SelectCard(CardId.Paladin1, CardId.Paladin2, CardId.Paladin3);
+			return true;
         }
     }
 }
