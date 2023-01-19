@@ -92,6 +92,7 @@ namespace WindBot.Game.AI.Decks
             AddExecutor(ExecutorType.Activate, CardId.CyberDragonCore, CyberDragonCoreEffect);
 			AddExecutor(ExecutorType.Activate, CardId.CyberDragonHerz, CyberDragonHerzEffect);
 			AddExecutor(ExecutorType.Activate, CardId.ChimeratechRampageDragon, ChimeratechRampageDragonEffect1);
+			AddExecutor(ExecutorType.Activate, CardId.ChimeratechRampageDragon, ChimeratechRampageDragonEffect2);
 
             AddExecutor(ExecutorType.SpSummon, CardId.CyberEndDragon);
             AddExecutor(ExecutorType.SpSummon, CardId.CyberTwinDragon);
@@ -214,6 +215,15 @@ namespace WindBot.Game.AI.Decks
         }
 		
 		private bool ChimeratechRampageDragonEffect1()
+        {
+            IList<ClientCard> targets = Enemy.GetSpells();
+            if (targets.Count > 0) {
+				AI.SelectCard(targets)
+                return true;
+            }
+            return false;
+        }
+		private bool ChimeratechRampageDragonEffect2()
         {
             if((Bot.GetRemainingCount(CardId.CyberDragonHerz, 3) + Bot.GetRemainingCount(CardId.CyberDragon, 3) + Bot.GetRemainingCount(CardId.CyberDragonCore, 3) + Bot.GetRemainingCount(CardId.CyberDragonNachster, 3) + Bot.GetRemainingCount(CardId.CyberDragonVier, 3)) > 1)
             {

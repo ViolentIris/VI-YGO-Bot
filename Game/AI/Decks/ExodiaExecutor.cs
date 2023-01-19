@@ -177,6 +177,8 @@ namespace WindBot.Game.AI.Decks
 			if (Bot.GetMonsterCount() >= Enemy.GetMonsterCount()) return false;
 			if (Bot.HasInHand(CardId.Chicken)) return false;
 			if (Bot.HasInSpellZone(CardId.Hole)) return false;
+			if (Card.Location == CardLocation.Hand)
+                return DefaultField();
             return false;
         }
 		private bool TerraformingAct()
