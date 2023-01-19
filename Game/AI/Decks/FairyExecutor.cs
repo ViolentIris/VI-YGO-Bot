@@ -48,7 +48,6 @@ namespace WindBot.Game.AI.Decks
             AddExecutor(ExecutorType.Summon, CardId.Artemis);
 			AddExecutor(ExecutorType.Summon, CardId.Meltiel);
 			AddExecutor(ExecutorType.Summon, CardId.Statue);
-			AddExecutor(ExecutorType.Summon, CardId.Ariadne);
 
             AddExecutor(ExecutorType.Activate, CardId.Artemis);
             AddExecutor(ExecutorType.Activate, CardId.Meltiel);
@@ -100,12 +99,18 @@ namespace WindBot.Game.AI.Decks
 		private bool AriadneScaleActivate()
         {
             if (Bot.HasInSpellZone(CardId.Ariadne)) return false;
-			return false;
+			ClientCard l = Util.GetPZone(0, 0);
+            ClientCard r = Util.GetPZone(0, 1);
+			if (l == null && r.RScale != Card.LScale)
+                return true;
+            if (r == null && l.LScale != Card.RScale)
+                return true;
+            return false;
         }
 		private bool Parshath1eff()
         {
-            if (Card.IsCode(CardId.Parshath1) && Bot.HasInSpellZone(CardId.Parshath1)) return false;
-            return false;
+            if (Bot.HasInSpellZone(CardId.Parshath1)) return false;
+            return true;
         }
 		private bool Paladin1Effect1()
         {           
