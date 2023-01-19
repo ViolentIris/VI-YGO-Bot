@@ -162,14 +162,14 @@ namespace WindBot.Game.AI.Decks
             if (Bot.HasInSpellZone(CardId.Hole)) return false;
             if (ActivateDescription == Util.GetStringId(CardId.Chicken, 0))
                 return true;
-            return false;
+            return true;
         }
 		private bool HoleAct()
         {
 			if (Enemy.GetMonsterCount() >= 1) return true;
 			if (Bot.HasInHand(CardId.Chicken)) return false;
 			if (Bot.HasInSpellZone(CardId.Hole)) return false;
-            return false;
+            return true;
         }
 		private bool TerraformingAct()
         {
@@ -186,9 +186,9 @@ namespace WindBot.Game.AI.Decks
         }
         private bool BattleFadereff()
         {
-            if (Util.ChainContainsCard(CardId.Scarecrow) || Util.ChainContainsCard(CardId.BattleFader))
+            if (Bot.HasInHand(CardId.Scarecrow))
                 return false;
-            if (prevent_used || Duel.Player == 0) return false;
+			if (prevent_used || Duel.Player == 0) return false;
 			if (Bot.SpellZone[5].IsCode(CardId.Hole)) return false;
             AI.SelectPosition(CardPosition.FaceUpDefence);
             prevent_used = true;
@@ -196,8 +196,6 @@ namespace WindBot.Game.AI.Decks
         }
 		private bool Scarecroweff()
         {
-            if (Util.ChainContainsCard(CardId.Scarecrow) || Util.ChainContainsCard(CardId.BattleFader))
-                return false;
             if (prevent_used || Duel.Player == 0) return false;
             prevent_used = true;
             return true;
