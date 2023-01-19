@@ -160,15 +160,15 @@ namespace WindBot.Game.AI.Decks
         {
             if (Bot.LifePoints <= 1000) return false;
             if (Bot.SpellZone[5].IsCode(CardId.Hole) && Bot.SpellZone[5].Disabled==0) return false;
-            if (ActivateDescription == Util.GetStringId(_CardId.Chicken, 0))
+            if (ActivateDescription == Util.GetStringId(CardId.Chicken, 0))
                 return true;
             return false;
         }
 		private bool HoleAct()
         {
             if (Bot.SpellZone[5].IsCode(CardId.Hole) && Bot.SpellZone[5].Disabled==0) return false;
-			if (Bot.Bot.HasInHand(Bot.Hand, CardId.Chicken) || Bot.HasInHand(CardId.Terraforming)) return false;
-			if (Enemy.MonsterZone.ToList().Count >= 1) return false;
+			if (Bot.HasInHand(CardId.Chicken) || Bot.HasInHand(CardId.Terraforming)) return false;
+			if (Enemy.MonsterZone.Count >= 1) return false;
             return false;
         }
 		private bool TerraformingAct()
@@ -186,7 +186,7 @@ namespace WindBot.Game.AI.Decks
         }
         private bool BattleFadereff()
         {
-            if (Util.ChainContainsCard(Scarecrow) || Util.ChainContainsCard(CardId.BattleFader))
+            if (Util.ChainContainsCard(CardId.Scarecrow) || Util.ChainContainsCard(CardId.BattleFader))
                 return false;
             if (prevent_used || Duel.Player == 0) return false;
 			if (Bot.SpellZone[5].IsCode(CardId.Hole)) return false;
