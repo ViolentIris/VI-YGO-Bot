@@ -99,13 +99,7 @@ namespace WindBot.Game.AI.Decks
 		private bool AriadneScaleActivate()
         {
             if (Bot.HasInSpellZone(CardId.Ariadne)) return false;
-			ClientCard l = Util.GetPZone(0, 0);
-            ClientCard r = Util.GetPZone(0, 1);
-			if (l == null && r.RScale != Card.LScale)
-                return true;
-            if (r == null && l.LScale != Card.RScale)
-                return true;
-            return false;
+            return true;
         }
 		private bool Parshath1eff()
         {
