@@ -98,8 +98,8 @@ namespace WindBot.Game.AI.Decks
         }
 		private bool AriadneScaleActivate()
         {
-            if (Bot.HasInSpellZone(CardId.Ariadne)) return false;
-            return true;
+            if (!Bot.HasInSpellZone(CardId.Ariadne)) return true;
+            return false;
         }
 		private bool Parshath1eff()
         {
@@ -138,7 +138,7 @@ namespace WindBot.Game.AI.Decks
         }
 		private bool Parshath2Effect()
         {
-            return !(Duel.Player == 0 && Duel.LastChainPlayer == -1);
+            return !(Duel.Player == 0 && Duel.LastChainPlayer == -1) && DefaultTrap();
 			
         }
 		public override bool OnSelectYesNo(int desc)
