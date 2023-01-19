@@ -73,7 +73,7 @@
     <Compile Include="Game\AI\Decks\BraveExecutor.cs" />
     <Compile Include="Game\AI\Decks\FamiliarPossessedExecutor.cs" />
     <Compile Include="Game\AI\Decks\BlackwingExecutor.cs" />
-	 <Compile Include="Game\AI\Decks\Exodia.cs" />
+	 <Compile Include="Game\AI\Decks\ExodiaExecutor.cs" />
     <Compile Include="Game\AI\Decks\LuckyExecutor.cs" />
     <Compile Include="Game\AI\Decks\MathMechExecutor.cs" />
     <Compile Include="Game\AI\Decks\PureWindsExecutor.cs" />
