@@ -145,7 +145,7 @@ namespace WindBot.Game.AI.Decks
         }
 		private bool Paladin3Effect()
         {
-		if Bot.HasInSpellZone(CardId.Sanctuary)
+		if (Bot.HasInSpellZone(CardId.Sanctuary))
 		{
 			AI.SelectCard(CardId.Honest, CardId.Parshath1, CardId.Ariadne, CardId.Artemis, CardId.Meltiel);
 			return true;
