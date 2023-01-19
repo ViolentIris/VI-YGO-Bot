@@ -95,6 +95,7 @@ namespace WindBot.Game.AI.Decks
         private bool CardOfDemiseeff()
         {
             if (Bot.HasInHand(CardId.Honest)) return false;
+			return true;
         }
 		private bool AriadneScaleActivate()
         {
