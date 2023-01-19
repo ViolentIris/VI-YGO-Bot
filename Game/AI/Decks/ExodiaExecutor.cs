@@ -54,6 +54,7 @@ namespace WindBot.Game.AI.Decks
             AddExecutor(ExecutorType.Activate, CardId.Upstart);
             AddExecutor(ExecutorType.Activate, CardId.Terraforming, TerraformingAct);
 			AddExecutor(ExecutorType.Activate, CardId.Chicken, ChickenAct);
+			AddExecutor(ExecutorType.Activate, CardId.Chicken, Chickeneff);
 			AddExecutor(ExecutorType.Activate, CardId.Hole, HoleAct);
             //activate trap
             AddExecutor(ExecutorType.Activate, CardId.ThreateningRoar, ThreateningRoareff);
