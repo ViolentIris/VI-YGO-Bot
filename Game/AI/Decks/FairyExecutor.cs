@@ -132,7 +132,7 @@ namespace WindBot.Game.AI.Decks
         }
 		private bool Paladin1Effect1()
         {           
-            foreach (ClientCard e_c in Bot.Graveyard())
+            foreach (ClientCard e_c in Bot.Graveyard)
                     AI.SelectCard(CardId.Honest, CardId.Statue, CardId.Ariadne, CardId.Artemis, CardId.Meltiel);
 					AI.SelectNextCard(CardId.Honest, CardId.Statue, CardId.Ariadne, CardId.Artemis, CardId.Meltiel);
 					AI.SelectPosition(CardPosition.FaceUpAttack);
