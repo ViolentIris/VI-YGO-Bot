@@ -211,10 +211,10 @@ namespace WindBot.Game.AI.Decks
             AddExecutor(ExecutorType.Activate, CardId.MekkKnightCrusadiaAvramax, MekkKnightCrusadiaAvramaxEffect);
             AddExecutor(ExecutorType.SpSummon, CardId.MekkKnightCrusadiaAvramax, MekkKnightCrusadiaAvramaxSummon);
             AddExecutor(ExecutorType.SpSummon, CardId.BaronnedeFleur, BaronnedeFleurSummon_2);
-			AddExecutor(ExecutorType.Activate,Monsters.AshBlossomAndJoyousSpring, DefaultAshBlossomAndJoyousSpring);
+			AddExecutor(ExecutorType.Activate, CardId.AshBlossomAndJoyousSpring, DefaultAshBlossomAndJoyousSpring);
 			AddExecutor(ExecutorType.SpSummon, CardId.EvilswarmExcitonKnight, DefaultEvilswarmExcitonKnightSummon);
             AddExecutor(ExecutorType.Activate, CardId.EvilswarmExcitonKnight, DefaultEvilswarmExcitonKnightEffect);
-            AddExecutor(ExecutorType.Activate,Monsters.MaxxC, DefaultMaxxC);
+            AddExecutor(ExecutorType.Activate, CardId.MaxxC, DefaultMaxxC);
             AddExecutor(ExecutorType.Repos, DefaultMonsterRepos);
             AddExecutor(ExecutorType.SpellSet, SpellSet);
         }
