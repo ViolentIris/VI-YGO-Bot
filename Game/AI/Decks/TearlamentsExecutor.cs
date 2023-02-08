@@ -1261,7 +1261,7 @@ namespace WindBot.Game.AI.Decks
                 {
                     bot_send_to_deck_ids = new List<int>();
                     IList<ClientCard> temp = new List<ClientCard>();
-                    if (b_cards.Count > 0 && Bot.ExtraDeck.Any(card => card != null && card.HasType(CardType.Fusion))
+                    if (b_cards.Count > 0 && Bot.ExtraDeck.Any(card => card != null && card.HasType(CardType.Fusion)))
                     {
                         if (CheckRemainInDeck(CardId.TearlamentsScheiren) <= 0 && HasInList(cards, CardId.TearlamentsScheiren)) bot_send_to_deck_ids.Add(CardId.TearlamentsScheiren);
                         if (CheckRemainInDeck(CardId.TearlamentsMerrli) <= 0 && HasInList(cards, CardId.TearlamentsMerrli)) bot_send_to_deck_ids.Add(CardId.TearlamentsMerrli);
@@ -1492,7 +1492,7 @@ namespace WindBot.Game.AI.Decks
             if ((!activate_TearlamentsMerrli_2 && CheckRemainInDeck(CardId.TearlamentsMerrli) > 0)
                 || (!activate_TearlamentsHavnis_2 && CheckRemainInDeck(CardId.TearlamentsHavnis) > 0)
                 || (!activate_TearlamentsScheiren_2 && CheckRemainInDeck(CardId.TearlamentsScheiren) > 0))
-                return Bot.ExtraDeck.Count(card => card != null && card.HasType(CardType.Fusion) > 0;
+                return Bot.ExtraDeck.Count(card => card != null && card.HasType(CardType.Fusion)) > 0;
             return false;
 
         }
@@ -2095,7 +2095,7 @@ namespace WindBot.Game.AI.Decks
             else if (Card.Location == CardLocation.Grave)
             {
                 ClientCard chain_card = Util.GetLastChainCard();
-                if (chain_card != null && chain_card.Controller == 0 && (chain_card.Id == CardId.TearlamentsRulkallos  || chain_card.Id == CardId.UnderworldGoddessoftheClosedWorld) return false;
+                if (chain_card != null && chain_card.Controller == 0 && (chain_card.Id == CardId.TearlamentsRulkallos || chain_card.Id == CardId.UnderworldGoddessoftheClosedWorld)) return false;
                 if (GetZoneCards(CardLocation.Grave, Enemy).Count() <= 0 && Bot.Deck.Count >= 3) return false;
                 if ((Duel.CurrentChain == null || Duel.CurrentChain.Count <= 0) && Bot.Deck.Count >= 3) return false;
                 if (Duel.CurrentChain.Any(card => card != null && card.Controller == 0 && (card.Id == CardId.MudoratheSwordOracle || card.Id == CardId.KeldotheSacredProtector) || card.Id == CardId.NaelshaddollAriel)) return false;
