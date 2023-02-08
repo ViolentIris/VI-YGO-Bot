@@ -168,7 +168,9 @@ namespace WindBot.Game.AI.Decks
         }
 		private bool Chickeneff()
         {
-            if (ActivateDescription == Util.GetStringId(CardId.Chicken, 0))
+            if (Bot.LifePoints <= 1000)
+                return false;
+			if (ActivateDescription == Util.GetStringId(CardId.Chicken, 0))
                 return true;
             return true;
         }
