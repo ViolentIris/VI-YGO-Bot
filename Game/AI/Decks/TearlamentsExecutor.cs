@@ -2281,7 +2281,7 @@ namespace WindBot.Game.AI.Decks
             {
                 if (Duel.Player == 1)
                 {
-                    if (!activate_AgidotheAncientSentinel_2 && (Bot.HasInHand(CardId.HeraldofOrangeLight)))
+                    if (!activate_AgidotheAncientSentinel_2 && (Bot.HasInHand(CardId.HeraldofOrangeLight))
                         && Bot.Hand.Count(card => card != null && card.Id == CardId.AgidotheAncientSentinel) <= 1) return false;
                 }
                 SetSpSummon();
