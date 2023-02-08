@@ -26,12 +26,13 @@ namespace WindBot.Game.AI.Decks
             public const int TearlamentsMerrli = 74078255;
             public const int DivineroftheHerald = 92919429;
             public const int HeraldofOrangeLight = 17266660;
-            public const int HeraldofGreenLight = 21074344;
             public const int TearlamentsScream = 6767771;
             public const int PrimevalPlanetPerlereino = 77103950;
+			public const int CalledByTheGrave = 24224830;
             public const int TearlamentsSulliek = 74920585;
 			public const int MaxxC = 23434538;
             public const int AshBlossomAndJoyousSpring =14558127;
+			public const int TripleTacticsTalent = 25311006;
 
             public const int TearlamentsKaleidoHeart = 28226490;
             public const int TearlamentsRulkallos = 84330567;
@@ -177,7 +178,6 @@ namespace WindBot.Game.AI.Decks
             AddExecutor(ExecutorType.Activate, CardId.BaronnedeFleur, BaronnedeFleurEffect);
             AddExecutor(ExecutorType.Activate, CardId.PredaplantDragostapelia, PredaplantDragostapeliaEffect);
             AddExecutor(ExecutorType.Activate, CardId.HeraldofOrangeLight);
-            AddExecutor(ExecutorType.Activate, CardId.HeraldofGreenLight);
             AddExecutor(ExecutorType.Activate, CardId.TearlamentsRulkallos, TearlamentsRulkallosEffect);
             AddExecutor(ExecutorType.Activate, CardId.TearlamentsScheiren, TearlamentsScheirenEffect);
             AddExecutor(ExecutorType.Activate, CardId.TearlamentsKitkallos, TearlamentsKitkallosEffect);
@@ -214,6 +214,8 @@ namespace WindBot.Game.AI.Decks
 			AddExecutor(ExecutorType.Activate, CardId.AshBlossomAndJoyousSpring, DefaultAshBlossomAndJoyousSpring);
 			AddExecutor(ExecutorType.SpSummon, CardId.EvilswarmExcitonKnight, DefaultEvilswarmExcitonKnightSummon);
             AddExecutor(ExecutorType.Activate, CardId.EvilswarmExcitonKnight, DefaultEvilswarmExcitonKnightEffect);
+			AddExecutor(ExecutorType.Activate, CardId.CalledByTheGrave, DefaultCalledByTheGrave);
+			AddExecutor(ExecutorType.Activate, CardId.TripleTacticsTalent, TripleTacticsTalentEffect);
             AddExecutor(ExecutorType.Activate, CardId.MaxxC, DefaultMaxxC);
             AddExecutor(ExecutorType.Repos, DefaultMonsterRepos);
             AddExecutor(ExecutorType.SpellSet, SpellSet);
@@ -1036,7 +1038,7 @@ namespace WindBot.Game.AI.Decks
             }
             if (hint == HintMsg.Remove && cards.Any(card => card != null && ((card.HasAttribute(CardAttribute.Light) && card.HasRace(CardRace.Fairy)) || card.Controller == 1)))
             {
-                IList<ClientCard> res = CardsIdToClientCards(new List<int>() { CardId.HeraldofGreenLight, CardId.HeraldofOrangeLight, CardId.DivineroftheHerald }, cards.Where(card => card != null && card.Location == CardLocation.Grave).ToList(), false);
+                IList<ClientCard> res = CardsIdToClientCards(new List<int>() { CardId.HeraldofOrangeLight, CardId.DivineroftheHerald }, cards.Where(card => card != null && card.Location == CardLocation.Grave).ToList(), false);
                 List<ClientCard> eres = cards.Where(card => card != null && card.Controller == 1 && !key_no_remove_ids.Contains(card.Id)).ToList();
                 eres.Sort(CardContainer.CompareCardAttack);
                 eres.Reverse();
@@ -1046,11 +1048,11 @@ namespace WindBot.Game.AI.Decks
             }
             if (hint == HintMsg.AddToHand && cards.Any(card => card != null && card.Location == CardLocation.Deck))
             {
-                List<int> ids = new List<int>() { CardId.HeraldofOrangeLight, CardId.HeraldofGreenLight, CardId.DivineroftheHerald };
-                if (!Bot.HasInSpellZoneOrInGraveyard(CardId.DivineroftheHerald) && (Bot.HasInHand(CardId.HeraldofOrangeLight) || Bot.HasInHand(CardId.HeraldofGreenLight)))
+                List<int> ids = new List<int>() { CardId.HeraldofOrangeLight, CardId.DivineroftheHerald };
+                if (!Bot.HasInSpellZoneOrInGraveyard(CardId.DivineroftheHerald) && (Bot.HasInHand(CardId.HeraldofOrangeLight)))
                 {
                     ids.Clear();
-                    ids.AddRange(new List<int>() { CardId.DivineroftheHerald, CardId.HeraldofOrangeLight, CardId.HeraldofGreenLight });
+                    ids.AddRange(new List<int>() { CardId.DivineroftheHerald, CardId.HeraldofOrangeLight});
                 }
                 ids.AddRange(GetCardsIdSendToHand().Distinct());
                 IList<ClientCard> res = CardsIdToClientCards(ids, cards, false);
@@ -1132,9 +1134,9 @@ namespace WindBot.Game.AI.Decks
                 if (Enemy.GetSpellCount() > 0) ids.Add(CardId.ShaddollDragon);
                 if (Bot.Deck.Count > 0) ids.Add(CardId.ShaddollBeast);
                 if (Enemy.Graveyard.Count > 0) ids.Add(CardId.NaelshaddollAriel);
-                if (((Bot.HasInHand(CardId.HeraldofOrangeLight) || Bot.HasInHand(CardId.HeraldofGreenLight))
+                if (((Bot.HasInHand(CardId.HeraldofOrangeLight))
                     && Bot.Hand.Count(card => card != null && card.HasRace(CardRace.Fairy)) > 2)
-                    || (!Bot.HasInHand(CardId.HeraldofOrangeLight) && !Bot.HasInHand(CardId.HeraldofGreenLight)))
+                    || (!Bot.HasInHand(CardId.HeraldofOrangeLight)))
                 {
                     ids.Add(CardId.MudoratheSwordOracle);
                     ids.Add(CardId.KeldotheSacredProtector);
@@ -1142,7 +1144,6 @@ namespace WindBot.Game.AI.Decks
                 if (!activate_TearlamentsReinoheart_2 && HasInList(cards, CardId.TearlamentsReinoheart)) ids.Add(CardId.TearlamentsReinoheart);
                 if (!activate_TearlamentsScream_2 && CheckRemainInDeck(CardId.TearlamentsSulliek) > 0) ids.Add(CardId.TearlamentsScream);
                 if (!activate_TearlamentsSulliek_2) ids.Add(CardId.TearlamentsSulliek);
-                ids.Add(CardId.HeraldofGreenLight);
                 ids.Add(CardId.HeraldofOrangeLight);
                 ids = ids.Distinct().ToList();
                 IList<ClientCard> res = CardsIdToClientCards(ids, cards, false);
@@ -1151,7 +1152,7 @@ namespace WindBot.Game.AI.Decks
                 {
                     if (temp.Count <= 1) break;
                     if ((!summoned && card.Id == CardId.DivineroftheHerald)
-                        || card.Id == CardId.HeraldofOrangeLight || card.Id == CardId.HeraldofGreenLight
+                        || card.Id == CardId.HeraldofOrangeLight
                         || (!summoned && card.Id == CardId.TearlamentsMerrli && !activate_TearlamentsHavnis_1))
                     {
                         temp.Remove(card);
@@ -1282,7 +1283,6 @@ namespace WindBot.Game.AI.Decks
                     if (CheckRemainInDeck(CardId.KelbektheAncientVanguard) <= 0 && HasInList(cards, CardId.KelbektheAncientVanguard)) bot_send_to_deck_ids.Add(CardId.KelbektheAncientVanguard);
                     if (CheckRemainInDeck(CardId.AgidotheAncientSentinel) <= 0 && HasInList(cards, CardId.AgidotheAncientSentinel)) bot_send_to_deck_ids.Add(CardId.AgidotheAncientSentinel);
                     if (CheckRemainInDeck(CardId.HeraldofOrangeLight) <= 0 && HasInList(cards, CardId.HeraldofOrangeLight)) bot_send_to_deck_ids.Add(CardId.HeraldofOrangeLight);
-                    if (CheckRemainInDeck(CardId.HeraldofGreenLight) <= 0 && HasInList(cards, CardId.HeraldofGreenLight)) bot_send_to_deck_ids.Add(CardId.HeraldofGreenLight);
                     temp = CardsIdToClientCards(bot_send_to_deck_ids, b_cards);
                     if (temp.Count > 0)
                     {
@@ -1332,7 +1332,7 @@ namespace WindBot.Game.AI.Decks
                     }
                     else
                     {
-                        ids = new List<int>() { CardId.DivineroftheHerald, CardId.TearlamentsMerrli, CardId.HeraldofOrangeLight, CardId.HeraldofGreenLight };
+                        ids = new List<int>() { CardId.DivineroftheHerald, CardId.TearlamentsMerrli, CardId.HeraldofOrangeLight};
                     }
                 }
                 else
@@ -1358,7 +1358,7 @@ namespace WindBot.Game.AI.Decks
                     }
                     else
                     {
-                        ids = new List<int>() { CardId.DivineroftheHerald, CardId.TearlamentsMerrli, CardId.HeraldofOrangeLight, CardId.HeraldofGreenLight };
+                        ids = new List<int>() { CardId.DivineroftheHerald, CardId.TearlamentsMerrli, CardId.HeraldofOrangeLight};
                     }
                 }
                 res = CardsIdToClientCards(ids, cards, false);
@@ -1592,8 +1592,6 @@ namespace WindBot.Game.AI.Decks
                     return Bot.GetRemainingCount(CardId.DivineroftheHerald, 3);
                 case CardId.HeraldofOrangeLight:
                     return Bot.GetRemainingCount(CardId.HeraldofOrangeLight, 3);
-                case CardId.HeraldofGreenLight:
-                    return Bot.GetRemainingCount(CardId.HeraldofGreenLight, 3);
                 case CardId.TearlamentsScream:
                     return Bot.GetRemainingCount(CardId.TearlamentsScream, 1);
                 case CardId.PrimevalPlanetPerlereino:
@@ -2283,7 +2281,7 @@ namespace WindBot.Game.AI.Decks
             {
                 if (Duel.Player == 1)
                 {
-                    if (!activate_AgidotheAncientSentinel_2 && (Bot.HasInHand(CardId.HeraldofOrangeLight) || Bot.HasInHand(CardId.HeraldofGreenLight))
+                    if (!activate_AgidotheAncientSentinel_2 && (Bot.HasInHand(CardId.HeraldofOrangeLight)))
                         && Bot.Hand.Count(card => card != null && card.Id == CardId.AgidotheAncientSentinel) <= 1) return false;
                 }
                 SetSpSummon();
@@ -2299,7 +2297,7 @@ namespace WindBot.Game.AI.Decks
         {
             if (Card.Location == CardLocation.Hand)
             {
-                if ((Bot.HasInHand(CardId.HeraldofOrangeLight) || Bot.HasInHand(CardId.HeraldofGreenLight))
+                if ((Bot.HasInHand(CardId.HeraldofOrangeLight))
                     && !activate_KelbektheAncientVanguard_2) return false;
                 List<ClientCard> cards = Enemy.GetMonsters();
                 cards.Sort(CardContainer.CompareCardAttack);
@@ -2379,6 +2377,12 @@ namespace WindBot.Game.AI.Decks
                 return false;
             }
             else return true;
+        }
+		private bool TripleTacticsTalentEffect()
+        {
+            if (ActivateDescription == Util.GetStringId(CardId.TripleTacticsTalent, 0))
+                return true;
+            return true;
         }
         private bool TearlamentsKitkallosEffect()
         {
