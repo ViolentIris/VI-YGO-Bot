@@ -236,6 +236,11 @@
         "dialog": "Snow-Song.zh-CN"
       },
       {
+        "name": "歌儿",
+        "deck": "Exosister",
+        "dialog": "Snow-Song.zh-CN"
+      },
+      {
         "name": "夏姬",
         "deck": "Kashtira",
         "dialog": "Summer-moe.zh-CN"
