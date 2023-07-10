@@ -26,6 +26,11 @@
         "dialog": "VI-1911.zh-CN"
       },
       {
+        "name": "VI-1911",
+        "deck": "ThunderDragon",
+        "dialog": "VI-1911.zh-CN"
+      },
+      {
         "name": "谜之剑士LV4",
         "deck": "Rank V",
         "dialog": "swordsman.zh-CN"
@@ -222,12 +227,12 @@
       },
       {
         "name": "鸭鸭",
-        "deck": "ThunderDragon",
+        "deck": "Tearlaments",
         "dialog": "DuckDuck.zh-CN"
       },
       {
         "name": "鸭鸭",
-        "deck": "Tearlaments",
+        "deck": "Zefra",
         "dialog": "DuckDuck.zh-CN"
       },
       {
