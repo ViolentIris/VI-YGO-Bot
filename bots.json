@@ -261,7 +261,6 @@
         "dialog": "Caesar.zh-CN"
       },
       {
-
         "name": "報社鬥士",
         "deck": "GrenMajuThunderBoarder",
         "dialog": "kiwi.zh-TW",
@@ -276,5 +275,10 @@
         "deck": "ThunderDragon",
         "dialog": "Zefra.zh-CN",
       }
+      {
+        "name": "艾克莉西娅",
+        "deck": "Swordsoul",
+        "dialog": "ecclesia.zh-CN",
+      },
     ]
 }
