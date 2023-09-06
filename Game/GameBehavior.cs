@@ -17,9 +17,6 @@ namespace WindBot.Game
         public GameClient Game { get; private set; }
         public YGOClient Connection { get; private set; }
         public Deck Deck { get; private set; }
-        public Deck DeckForWin { get; private set; }
-        public Deck DeckForLose { get; private set; }
-        public string DeckCode { get; private set; }
 
         private GameAI _ai;
 
@@ -32,7 +29,6 @@ namespace WindBot.Game
         private bool _debug;        
         private int _select_hint;
         private GameMessage _lastMessage;
-        private int lastDuelResult;
 
         public GameBehavior(GameClient game)
         {
@@ -49,17 +45,9 @@ namespace WindBot.Game
 
             _ai = new GameAI(Game, _duel);
             _ai.Executor = DecksManager.Instantiate(_ai, _duel);
-            if(Game.DeckCode != null) {
-                DeckCode = Game.DeckCode;
-            } else {
-                DeckCode = null;
-                string deckName = Game.DeckFile ?? _ai.Executor.Deck;
-                Deck = Deck.Load(deckName);
-                DeckForWin = Deck.Load("Win/" + deckName);
-                DeckForLose = Deck.Load("Lose/" + deckName);
-            }
+            Deck = Deck.Load(Game.DeckFile ?? _ai.Executor.Deck);
+
             _select_hint = 0;
-            lastDuelResult = 2;
         }
 
         public int GetLocalPlayer(int player)
@@ -158,30 +146,6 @@ namespace WindBot.Game
             _messages.Add(GameMessage.FlipSummoned, OnSummoned);
         }
 
-        private BinaryWriter buildUpdateDeck(Deck targetDeck) {
-            BinaryWriter deck = GamePacketFactory.Create(CtosMessage.UpdateDeck);
-            if(DeckCode != null) {
-                try {
-                    byte[] deckContent = Convert.FromBase64String(DeckCode);
-                    deck.Write(deckContent);
-                } catch {
-                    _ai.OnDeckError("base64 decode");
-                }
-                return deck;
-            }
-            deck.Write(targetDeck.Cards.Count + targetDeck.ExtraCards.Count);
-            //Logger.WriteLine("Main + Extra: " + targetDeck.Cards.Count + targetDeck.ExtraCards.Count);
-            deck.Write(targetDeck.SideCards.Count);
-            //Logger.WriteLine("Side: " + targetDeck.SideCards.Count);
-            foreach (NamedCard card in targetDeck.Cards)
-                deck.Write(card.Id);
-            foreach (NamedCard card in targetDeck.ExtraCards)
-                deck.Write(card.Id);
-            foreach (NamedCard card in targetDeck.SideCards)
-                deck.Write(card.Id);
-            return deck;
-        }
-
         private void OnJoinGame(BinaryReader packet)
         {
             /*int lflist = (int)*/ packet.ReadUInt32();
@@ -190,30 +154,30 @@ namespace WindBot.Game
             int duel_rule = packet.ReadByte();
             _ai.Duel.IsNewRule = (duel_rule >= 4);
             _ai.Duel.IsNewRule2020 = (duel_rule >= 5);
-            //BinaryWriter deck = buildUpdateDeck(pickDeckOnResult());
-            //Connection.Send(deck);
+            BinaryWriter deck = GamePacketFactory.Create(CtosMessage.UpdateDeck);
+            deck.Write(Deck.Cards.Count + Deck.ExtraCards.Count);
+            deck.Write(Deck.SideCards.Count);
+            foreach (NamedCard card in Deck.Cards)
+                deck.Write(card.Id);
+            foreach (NamedCard card in Deck.ExtraCards)
+                deck.Write(card.Id);
+            foreach (NamedCard card in Deck.SideCards)
+                deck.Write(card.Id);
+            Connection.Send(deck);
             _ai.OnJoinGame();
-        }
-        
-        private Deck pickDeckOnResult() {
-            if(DeckCode != null) {
-                return null;
-            }
-            if(lastDuelResult == 0 && DeckForWin != null) {
-                //Logger.WriteLine("Using deck for win: " + DeckForWin.SideCards[2].Name);
-                return DeckForWin;
-            }
-            if(lastDuelResult == 1 && DeckForLose != null) {
-                //Logger.WriteLine("Using deck for lose: " + DeckForLose.SideCards[2].Name);
-                return DeckForLose;
-            }
-            //Logger.WriteLine("Using default deck.");
-            return Deck;
         }
 
         private void OnChangeSide(BinaryReader packet)
         {
-            BinaryWriter deck = buildUpdateDeck(pickDeckOnResult());
+            BinaryWriter deck = GamePacketFactory.Create(CtosMessage.UpdateDeck);
+            deck.Write(Deck.Cards.Count + Deck.ExtraCards.Count);
+            deck.Write(Deck.SideCards.Count);
+            foreach (NamedCard card in Deck.Cards)
+                deck.Write(card.Id);
+            foreach (NamedCard card in Deck.ExtraCards)
+                deck.Write(card.Id);
+            foreach (NamedCard card in Deck.SideCards)
+                deck.Write(card.Id);
             Connection.Send(deck);
             _ai.OnJoinGame();
         }
@@ -230,8 +194,6 @@ namespace WindBot.Game
             _room.Position = pos;
             _room.IsHost = ((type >> 4) & 0xF) != 0;
             _room.IsReady[pos] = true;
-            BinaryWriter deck = buildUpdateDeck(pickDeckOnResult());
-            Connection.Send(deck);
             Connection.Send(CtosMessage.HsReady);
         }
 
@@ -266,10 +228,6 @@ namespace WindBot.Game
             {
                 _room.IsReady[pos] = false;
                 _room.Names[pos] = null;
-                if (state == (int)PlayerChange.Leave && Config.GetBool("AutoQuit", false)) {
-                    Connection.Close();
-                    return;
-                }
             }
 
             if (_room.IsHost && _room.IsReady[0] && _room.IsReady[1])
@@ -330,18 +288,13 @@ namespace WindBot.Game
             string message = packet.ReadUnicode(256);
             string myName = (player != 0) ? _room.Names[1] : _room.Names[0];
             string otherName = (player == 0) ? _room.Names[1] : _room.Names[0];
-			if (_debug) {
-				if (player < 4)
-					Logger.WriteLine(otherName + " say to " + myName + ": " + message);
-				else
-					Logger.WriteLine("Server say to " + myName + ": " + message);
-			}
+            if (player < 4)
+                Logger.DebugWriteLine(otherName + " say to " + myName + ": " + message);
         }
 
         private void OnErrorMsg(BinaryReader packet)
         {
             int msg = packet.ReadByte();
-            Logger.WriteLine("Got error: " + msg);
             // align
             packet.ReadByte();
             packet.ReadByte();
@@ -357,7 +310,7 @@ namespace WindBot.Game
                     if (card != null)
                         _ai.OnDeckError(card.Name);
                     else
-                        _ai.OnDeckError(code.ToString());
+                        _ai.OnDeckError("Unknown Card");
                 }
                 else
                     _ai.OnDeckError("DECK");
@@ -408,7 +361,7 @@ namespace WindBot.Game
             extra = packet.ReadInt16();
             _duel.Fields[GetLocalPlayer(1)].Init(deck, extra);
 
-            Logger.WriteLine("Duel started: " + _room.Names[0] + " versus " + _room.Names[1]);
+            Logger.DebugWriteLine("Duel started: " + _room.Names[0] + " versus " + _room.Names[1]);
             _ai.OnStart();
         }
 
@@ -416,11 +369,9 @@ namespace WindBot.Game
         {
             int result = GetLocalPlayer(packet.ReadByte());
 
-            lastDuelResult = result;
-
             string otherName = _room.Position == 0 ? _room.Names[1] : _room.Names[0];
             string textResult = (result == 2 ? "Draw" : result == 0 ? "Win" : "Lose");
-            Logger.WriteLine("Duel finished against " + otherName + ", result: " + textResult);
+            Logger.DebugWriteLine("Duel finished against " + otherName + ", result: " + textResult);
         }
 
         private void OnDraw(BinaryReader packet)
@@ -1127,7 +1078,7 @@ namespace WindBot.Game
             packet.ReadByte(); // specount
             bool forced = packet.ReadByte() != 0;
             packet.ReadInt32(); // hint1
-            packet.ReadInt32(); // hint2
+            int hint2 = packet.ReadInt32(); // hint2
 
             IList<ClientCard> cards = new List<ClientCard>();
             IList<int> descs = new List<int>();
@@ -1167,7 +1118,7 @@ namespace WindBot.Game
                 return;
             }
 
-            Connection.Send(CtosMessage.Response, _ai.OnSelectChain(cards, descs, forced));
+            Connection.Send(CtosMessage.Response, _ai.OnSelectChain(cards, descs, forced, hint2));
         }
 
         private void OnSelectCounter(BinaryReader packet)
