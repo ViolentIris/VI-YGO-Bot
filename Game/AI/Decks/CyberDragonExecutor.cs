@@ -55,7 +55,7 @@ namespace WindBot.Game.AI.Decks
             : base(ai, duel)
         { 
 			//first do
-			AddExecutor(ExecutorType.Activate, CardId.lightningStorm, DefaultLightingStorm);
+			AddExecutor(ExecutorType.Activate, CardId.lightningStorm, LightningStorm);
             AddExecutor(ExecutorType.Activate, CardId.HarpieFeatherDuster, DefaultHarpiesFeatherDusterFirst);
 			AddExecutor(ExecutorType.Activate, CardId.Raigeki, DefaultRaigeki);			
 			//counter
