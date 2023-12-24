@@ -280,5 +280,10 @@
         "deck": "Swordsoul",
         "dialog": "ecclesia.zh-CN",
       },
+      {
+        "name": "艾克莉西娅",
+        "deck": "Dogmatika",
+        "dialog": "ecclesia.zh-CN",
+      },
     ]
 }
