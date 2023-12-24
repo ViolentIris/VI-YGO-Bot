@@ -49,6 +49,8 @@
         Blackwing_FullArmoredWing = 54082269,
         DragunofRedEyes = 37818794,
         RedEyesBDragon = 74677422, // sometimes the name of DragunofRedEyes will be changed to RedEyesBDragon
-        TheArrivalCyberseIgnister = 11738489
+        TheArrivalCyberseIgnister = 11738489,
+        MajespecterPorcupineYamaarashi = 101203023,
+        RaidraptorRisingRebellionFalcon = 101203045
     }
 }

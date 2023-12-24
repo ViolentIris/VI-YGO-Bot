@@ -217,6 +217,11 @@
       },
       {
         "name": "邪恶老蓝莓",
+        "deck": "Labrynth",
+        "dialog": "Blueberry.zh-CN"
+      },
+      {
+        "name": "邪恶老蓝莓",
         "deck": "Exodia",
         "dialog": "Blueberry.zh-CN"
       },
