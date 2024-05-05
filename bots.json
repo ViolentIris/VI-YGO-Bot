@@ -279,7 +279,7 @@
         "name": "神数不神",
         "deck": "ThunderDragon",
         "dialog": "Zefra.zh-CN",
-      }
+      },
       {
         "name": "艾克莉西娅",
         "deck": "Swordsoul",
@@ -290,5 +290,10 @@
         "deck": "Dogmatika",
         "dialog": "ecclesia.zh-CN",
       },
+      {
+        "name": "今晚有宵夜吗",
+        "deck": "SuperheavySamurai",
+        "dialog": "superheavysamurai.zh-CN",
+      }
     ]
 }
