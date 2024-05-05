@@ -212,6 +212,6 @@
         StellarNemesisTPHON_DoomsdayStar = 93039339,
         SPLittleKnight = 29301450,
         AngelRing = 40678060,
-        SkullGuardianTheSilenforcingProtector = 101203037
+        SkullGuardianTheSilenforcingProtector = 10774240
     }
 }

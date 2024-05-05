@@ -50,7 +50,7 @@
         DragunofRedEyes = 37818794,
         RedEyesBDragon = 74677422, // sometimes the name of DragunofRedEyes will be changed to RedEyesBDragon
         TheArrivalCyberseIgnister = 11738489,
-        MajespecterPorcupineYamaarashi = 101203023,
-        RaidraptorRisingRebellionFalcon = 101203045
+        MajespecterPorcupineYamaarashi = 51073802,
+        RaidraptorRisingRebellionFalcon = 71222868
     }
 }

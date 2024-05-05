@@ -110,6 +110,7 @@ namespace WindBot.Game.AI.Decks
         public override void OnNewTurn()
         {
             CyberDragonInfinitySummoned = false;
+			base.OnNewTurn();
         }
 		
         private bool PolymerizationEffect()

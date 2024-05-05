@@ -12,6 +12,7 @@ namespace WindBot.Game.AI.Decks
     {
         public class CardId
         {
+            public const int DancePrincess = 52738610;
             public const int ThousandHands = 23401839;
             public const int TenThousandHands = 95492061;
             public const int Shurit = 90307777;
@@ -128,9 +129,15 @@ namespace WindBot.Game.AI.Decks
             return false;
         }
 		
-        private bool ShuritSet()
+        private bool DancePrincessSummon()
         {
             if (!Bot.HasInHand(CardId.ThousandHands) && !Bot.HasInHand(CardId.TenThousandHands))
+                return true;
+            return false;
+        }
+        private bool ShuritSet()
+        {
+            if (!Bot.HasInHand(CardId.ThousandHands) && !Bot.HasInHand(CardId.TenThousandHands) && !Bot.HasInHand(CardId.DancePrincess))
                 return true;
             return false;
         }

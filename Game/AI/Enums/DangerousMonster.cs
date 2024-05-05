@@ -26,6 +26,6 @@
         DaigustoSphreeze = 29552709,
         OhimetheManifestedMikanko = 81260679,
         ArahimetheManifestedMikanko = 75771170,
-        YubelDasEwigLiebeWächter = 101203038
+        YubelDasEwigLiebeWächter = 47172959
     }
 }

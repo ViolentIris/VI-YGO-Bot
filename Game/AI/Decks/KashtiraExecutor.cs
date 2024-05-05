@@ -142,6 +142,13 @@ namespace WindBot.Game.AI.Decks
             AddExecutor(ExecutorType.SpellSet, SpellSet);
             AddExecutor(ExecutorType.Repos, DefaultRepos);
         }
+
+        public override bool OnSelectHand()
+        {
+            // go first
+            return true;
+        }
+
         public override void OnNewTurn()
         {
             if (pre_link_mode < 0) pre_link_mode = Program.Rand.Next(2);
@@ -168,6 +175,7 @@ namespace WindBot.Game.AI.Decks
             opt_2 = false;
             if (flag >= 0) ++flag;
             if (flag >= 2) { flag = -1; activate_DimensionShifter = false; }
+            base.OnNewTurn();
         }
         public override bool OnSelectYesNo(int desc)
         {

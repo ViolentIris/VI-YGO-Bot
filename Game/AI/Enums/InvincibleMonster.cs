@@ -110,10 +110,10 @@
         ArahimetheManifestedMikanko = 75771170,
         UFOLight = 9275482,
         TaotheGreatChanter = 34541543,
-        SpiritOfYubel = 101203001,
-        DarkGuardian = 101203013,
-        EnvoyOfTheWaxState = 101203030,
-        Fluffyfluff = 101203033,
-        YubelDasEwigLiebeWächter = 101203038
+        SpiritOfYubel = 90829280,
+        DarkGuardian = 26746975,
+        EnvoyOfTheWaxState = 87462901,
+        Fluffyfluff = 85401123,
+        YubelDasEwigLiebeWächter = 47172959
     }
 }
