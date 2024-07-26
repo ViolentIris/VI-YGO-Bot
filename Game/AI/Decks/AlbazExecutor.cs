@@ -871,14 +871,14 @@ namespace WindBot.Game.AI.Decks
 
                             if (cartesiaSummonGoal > 0)
                             {
-                                BlazingCartesiaTheVirtuousFusionCheck(cards, cartesiaSummonGoal, materialList, cartesiaMaterialList, out ClientCard_fusionTarget1, out _);
+                                BlazingCartesiaTheVirtuousFusionCheck(cards, cartesiaSummonGoal, materialList, cartesiaMaterialList, out ClientCard _fusionTarget1, out _);
                                 if (_fusionTarget1 != null)
                                 {
                                     fusionTarget = _fusionTarget1;
                                     return Util.CheckSelectCount(new List<ClientCard> { fusionTarget }, cards, min, max);
                                 }
                             }
-                            BlazingCartesiaTheVirtuousFusionCheck(cards, 0, materialList, cartesiaMaterialList, out ClientCard_fusionTarget2, out _);
+                            BlazingCartesiaTheVirtuousFusionCheck(cards, 0, materialList, cartesiaMaterialList, out ClientCard _fusionTarget2, out _);
                             if (_fusionTarget2 != null)
                             {
                                 fusionTarget = _fusionTarget2;
@@ -951,7 +951,7 @@ namespace WindBot.Game.AI.Decks
                                     }
                                 }
                             }
-                            NadirServantActivateCheck(cards, true, out ClientCard_target);
+                            NadirServantActivateCheck(cards, true, out ClientCard target);
                             if (target != null)
                             {
                                 return Util.CheckSelectCount(new List<ClientCard> { target }, cards, min, max);
