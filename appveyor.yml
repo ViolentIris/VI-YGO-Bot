@@ -1,6 +1,6 @@
 version: '{build}'
 
-platform: x86
+platform: x64
 configuration: Release
 
 build: 
