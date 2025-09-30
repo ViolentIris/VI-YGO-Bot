@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WindBot")]
-[assembly: AssemblyDescription("A C# bot for YGOPro.")]
+[assembly: AssemblyTitle("YGO-VI-BOT")]
+[assembly: AssemblyDescription("A C# bot for YGO-VI-EX.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("IceYGO")]
+[assembly: AssemblyCompany("YGO-VI-EX")]
 [assembly: AssemblyProduct("WindBot")]
 [assembly: AssemblyCopyright("Copyright © YGO-VI-EX 1911")]
 [assembly: AssemblyTrademark("")]
